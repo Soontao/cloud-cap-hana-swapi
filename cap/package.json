@@ -7,11 +7,12 @@
   "private": false,
   "dependencies": {
     "@sap/cds": "^4.4",
-    "express": "^4",
     "@sap/hana-client": "^2.7",
-    "uuid": "^8.3",
+    "cds-mysql": "^0.1.6",
+    "cors": "^2.8.5",
+    "express": "^4",
     "swagger-ui-express": "^4.1",
-    "cors": "^2.8.5"
+    "uuid": "^8.3"
   },
   "devDependencies": {
     "@sap/ux-specification": "^1.84.0",
@@ -23,7 +24,8 @@
     "build": "cds build",
     "build2": "cp ./gen/db/.env ./ && cds build && cp ./.env ./gen/db/",
     "openapi": "cds compile srv --service all -o docs --to openapi --openapi:diagram",
-    "load": "node convertData"
+    "load": "node convertData",
+    "deploy": "cds-mysql-deploy"
   },
   "cds": {
     "preview": {
@@ -36,7 +38,10 @@
     },
     "requires": {
       "db": {
-        "kind": "hana"
+        "kind": "mysql"
+      },
+      "mysql": {
+        "impl": "cds-mysql"
       }
     }
   },
